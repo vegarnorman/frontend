@@ -102,8 +102,7 @@ gulp.task('img', function() {
       .on('error', function(err) {
         logError('An error occured in the gulp-imagemin plugin:\n' + err);
       })
-    .pipe(gulp.dest(destinations.img))
-    .pipe(notify({title: 'Gulp', message: 'Finished optimizing images!'}));
+    .pipe(gulp.dest(destinations.img));
 });
 
 gulp.task('serve', ['css', 'js', 'img'], function() {
