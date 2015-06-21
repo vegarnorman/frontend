@@ -115,7 +115,7 @@ gulp.task('serve', ['css', 'js', 'img'], function() {
   gulp.watch(sources.img, ['img']);
 
   gulp.watch(destinations.js + '/' + filenames.js).on('change', reload);
-  gulp.watch(destinations.html).on('change', reload);
+  gulp.watch(sources.html).on('change', reload);
   gulp.watch(destinations.img + '/**/*.*').on('change', reload);
 });
 
