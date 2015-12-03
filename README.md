@@ -1,6 +1,11 @@
 # Frontend
 
-Essentially a Gulp/Sass/BrowserSync starter project to get things going faster in a front-end development project.
+A simple starting point for front-end development projects using modern tools and technologies. BYO frameworks for testing and development. This boilerplate includes:
+
++ Gulp for asset pipelining
++ Babel for ES2015 transpiling
++ Sass for CSS superpowers
++ BrowserSync for cross-device testing
 
 ## How?
 
@@ -8,10 +13,8 @@ Essentially a Gulp/Sass/BrowserSync starter project to get things going faster i
 2. `npm install` it
 3. `gulp` it
 
-You'll just need to
+*You'll just need to*
 + ...put all your images in `src/img`
-+ ...stick all your Sass files in `src/scss`
++ ...stick all your Sass or CSS files in `src/scss`
 + ...let your JavaScript live in `src/js`
-+ ...let your HTML files hang around in `/public`
-
-If you want to expand on this to use CoffeeScript, EJS, Jade or whatever, feel free to do so.
++ ...let your HTML files hang out in `/public`
