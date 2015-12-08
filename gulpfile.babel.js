@@ -1,5 +1,3 @@
-'use strict'
-
 /*  Dependencies
 */
 
@@ -24,13 +22,14 @@ const reload = browserSync.reload
 */
 
 const sources = {
-  html: 'public/**/*.html',
+  html: 'src/html/**/*.html',
   css: 'src/scss/**/*.scss',
   js: 'src/js/**/*.js',
   img: 'src/img/**/*.{jpg,jpeg,png,gif,svg}'
 }
 
 const destinations = {
+  html: 'public',
   css: 'public/assets/css',
   js: 'public/assets/js',
   img: 'public/assets/img'
@@ -64,6 +63,11 @@ const notification = msg => {
 /*  Gulp tasks
 */
 
+gulp.task('html', () => {
+  gulp.src(sources.html)
+    .pipe(gulp.dest(destinations.html))
+})
+
 gulp.task('css', () => {
   gulp.src(sources.css)
     .pipe(sass())
@@ -80,7 +84,6 @@ gulp.task('css', () => {
       })
     .pipe(gulp.dest(destinations.css))
     .pipe(reload({stream: true}))
-    .pipe(notify({title: 'Gulp', message: 'Finished compiling Sass!'}))
 })
 
 gulp.task('js', () => {
@@ -100,7 +103,6 @@ gulp.task('js', () => {
         logError('An error occured in the gulp-uglify plugin:\n' + err)
       })
     .pipe(gulp.dest(destinations.js))
-    .pipe(notify({title: 'Gulp', message: 'Finished exporting JavaScript!'}))
 })
 
 gulp.task('img', () => {
@@ -116,17 +118,20 @@ gulp.task('img', () => {
     .pipe(gulp.dest(destinations.img))
 })
 
-gulp.task('serve', ['css', 'js', 'img'], () => {
+gulp.task('build', ['html', 'css', 'js', 'img'])
+
+gulp.task('serve', ['html', 'css', 'js', 'img'], () => {
   browserSync({
     server: './public'
   })
 
+  gulp.watch(sources.html, ['html'])
   gulp.watch(sources.css, ['css'])
   gulp.watch(sources.js, ['js'])
   gulp.watch(sources.img, ['img'])
 
   gulp.watch(destinations.js + '/' + filenames.js).on('change', reload)
-  gulp.watch(sources.html).on('change', reload)
+  gulp.watch(destinations.html).on('change', reload)
   gulp.watch(destinations.img + '/**/*.*').on('change', reload)
 });
 
