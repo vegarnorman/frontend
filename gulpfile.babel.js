@@ -22,10 +22,14 @@ const reload = browserSync.reload
 /*  Configuration
 */
 
+const filenames = {
+  js: 'main.js'
+}
+
 const sources = {
   html: 'src/html/**/*.html',
   css: 'src/scss/**/*.scss',
-  js: 'src/js/**/*.js',
+  js: 'src/js/' + filenames.js,
   img: 'src/img/**/*.{jpg,jpeg,png,gif,svg}'
 }
 
@@ -36,9 +40,6 @@ const destinations = {
   img: 'public/assets/img'
 }
 
-const filenames = {
-  js: 'main.js'
-}
 
 /*  Helpers
 */
