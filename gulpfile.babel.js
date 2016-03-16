@@ -3,11 +3,13 @@
 
 
 import gulp from 'gulp'
-import autoprefixer from 'gulp-autoprefixer'
 import imagemin from 'gulp-imagemin'
-import minify from 'gulp-minify-css'
 import notify from 'gulp-notify'
 import sass from 'gulp-sass'
+import autoprefixer from 'autoprefixer'
+import postcss from 'gulp-postcss'
+import sourcemaps from 'gulp-sourcemaps'
+import cssnano from 'cssnano'
 import util from 'gulp-util'
 import browserSync from 'browser-sync'
 import browserify from 'browserify'
@@ -72,20 +74,14 @@ gulp.task('html', () => {
 
 gulp.task('css', () => {
   gulp.src(sources.css)
+    .pipe(sourcemaps.init())
     .pipe(sass())
       .on('error', err => {
         logError('An error occured in the gulp-sass plugin:\n' + err)
       })
-    .pipe(autoprefixer({browsers: ['last 3 versions', 'Firefox ESR', 'Opera 12.1', 'iOS 7']}))
-      .on('error', err => {
-        logError('An error occured in the autoprefixer plugin:\n' + err)
-      })
-    .pipe(minify())
-      .on('error', err => {
-        logError('An error occured in the gulp-minify-css plugin:\n' + err)
-      })
-    .pipe(gulp.dest(destinations.css))
-    .pipe(reload({stream: true}))
+    .pipe(sourcemaps.write('.'))
+    .pipe(postcss([autoprefixer, cssnano]))
+    .pipe(gulp.dest(destinations.css));
 })
 
 gulp.task('js', () => {
@@ -122,6 +118,7 @@ gulp.task('serve', ['html', 'css', 'js', 'img'], () => {
   gulp.watch(sources.js, ['js'])
   gulp.watch(sources.img, ['img'])
 
+  gulp.watch(destinations.css + '/**/*.css').on('change', reload)
   gulp.watch(destinations.js + '/' + filenames.js).on('change', reload)
   gulp.watch(destinations.html + '/**/*.html').on('change', reload)
   gulp.watch(destinations.img + '/**/*.*').on('change', reload)
