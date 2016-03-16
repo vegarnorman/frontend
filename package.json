@@ -1,22 +1,24 @@
 {
   "name": "frontend",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "A boilerplate for modern front-end development",
   "author": "Vegar Norman <post@vegar.me> (http://vegar.me)",
+  "repository": "https://github.com/vegarnorman/frontend",
   "private": "true",
   "devDependencies": {
-    "babel-preset-es2015": "^6.1.18",
-    "browser-sync": "^2.10.0",
-    "gulp": "^3.9.0",
-    "gulp-autoprefixer": "^2.3.1",
-    "gulp-babel": "^6.1.1",
-    "gulp-concat": "^2.6.0",
-    "gulp-imagemin": "^2.4.0",
-    "gulp-minify-css": "^1.2.2",
-    "gulp-notify": "^2.2.0",
-    "gulp-sass": "^2.1.0",
-    "gulp-uglify": "^1.5.1",
-    "gulp-util": "^3.0.7"
+    "babel-preset-es2015": "*",
+    "babelify": "*",
+    "browser-sync": "*",
+    "browserify": "*",
+    "gulp": "*",
+    "gulp-autoprefixer": "*",
+    "gulp-imagemin": "*",
+    "gulp-minify-css": "*",
+    "gulp-notify": "*",
+    "gulp-sass": "*",
+    "gulp-util": "*",
+    "vinyl-buffer": "*",
+    "vinyl-source-stream": "*"
   },
   "dependencies": {}
 }

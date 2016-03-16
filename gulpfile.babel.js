@@ -4,15 +4,16 @@
 
 import gulp from 'gulp'
 import autoprefixer from 'gulp-autoprefixer'
-import babel from 'gulp-babel'
-import concat from 'gulp-concat'
 import imagemin from 'gulp-imagemin'
 import minify from 'gulp-minify-css'
 import notify from 'gulp-notify'
 import sass from 'gulp-sass'
-import uglify from 'gulp-uglify'
 import util from 'gulp-util'
 import browserSync from 'browser-sync'
+import browserify from 'browserify'
+import babelify from 'babelify'
+import source from 'vinyl-source-stream'
+import buffer from 'vinyl-buffer'
 
 
 const reload = browserSync.reload
@@ -87,22 +88,12 @@ gulp.task('css', () => {
 })
 
 gulp.task('js', () => {
-  gulp.src(sources.js)
-    .pipe(babel({
-      presets: ['es2015']
-    }))
-      .on('error', err => {
-        logError('An error occured in the gulp-babel plugin:\n' + err)
-      })
-    .pipe(concat(filenames.js))
-      .on('error', err => {
-        logError('An error occured in the gulp-concat plugin:\n' + err)
-      })
-    .pipe(uglify())
-      .on('error', err => {
-        logError('An error occured in the gulp-uglify plugin:\n' + err)
-      })
-    .pipe(gulp.dest(destinations.js))
+  return browserify(sources.js, {debug: false})
+    .transform(babelify, {presets: ['es2015']})
+    .bundle()
+    .pipe(source(filenames.js))
+    .pipe(buffer())
+    .pipe(gulp.dest(destinations.js));
 })
 
 gulp.task('img', () => {
@@ -131,7 +122,7 @@ gulp.task('serve', ['html', 'css', 'js', 'img'], () => {
   gulp.watch(sources.img, ['img'])
 
   gulp.watch(destinations.js + '/' + filenames.js).on('change', reload)
-  gulp.watch(destinations.html).on('change', reload)
+  gulp.watch(destinations.html + '/**/*.html').on('change', reload)
   gulp.watch(destinations.img + '/**/*.*').on('change', reload)
 });
 
