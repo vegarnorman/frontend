@@ -14,11 +14,9 @@
     "cssnano": "*",
     "gulp": "*",
     "gulp-imagemin": "*",
-    "gulp-notify": "*",
     "gulp-postcss": "*",
     "gulp-sass": "*",
     "gulp-sourcemaps": "*",
-    "gulp-util": "*",
     "vinyl-buffer": "*",
     "vinyl-source-stream": "*"
   },
